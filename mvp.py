@@ -247,7 +247,7 @@ Ces features sont concaténées pour constituer le vecteur d'entrée \\( \\mathb
         st.markdown("Lorsqu'une requête est effectuée, le système extrait les features, construit le vecteur \\( \\mathbf{x} \\), passe ce vecteur dans le MLP pour obtenir un score \\( \\hat{y} \\) et réordonne les résultats en fonction de ce score.")
 
 # =============================================================================
-# SYNTHÈSE et Cahier des Charges du MVP
+# SYNTHÈSE
 # =============================================================================
 elif choice == "Synthèse":
     st.header("Synthèse des Méthodologies")
@@ -263,110 +263,8 @@ Ce document présente en profondeur trois méthodologies complémentaires pour a
 
 3. **Réseau de neurones léger pour le ré-ranking :**  
    Utilise un MLP pour intégrer diverses features (similarité textuelle, popularité, score collaboratif) afin de réordonner les résultats de recherche en temps réel, en produisant un score de pertinence exploitable.
-        """
-    )
-    
-    # Nouvelle section : Cahier des Charges du MVP et Priorisation des Fonctionnalités
-    st.markdown("---")
-    st.header("4. Cahier des Charges du MVP et Priorisation des Fonctionnalités")
-    
-    st.subheader("4.1. Objectifs du MVP")
-    st.markdown(
-        """
-L'objectif du MVP (Produit Minimal Viable) est de délivrer une version opérationnelle et fonctionnelle du moteur de recherche intelligent pour Rakuten. 
-Ce MVP doit permettre de valider l'approche initiale basée sur le filtrage par contenu (NLP), en offrant une recherche pertinente et réactive, tout en posant les bases pour l'intégration future de techniques avancées (filtrage collaboratif et ré-ranking par réseau de neurones).
-        """
-    )
-    
-    st.subheader("4.2. Caractéristiques Fonctionnelles du MVP")
-    st.markdown(
-        """
-**a) Recherche de Produits Basée sur le Contenu**
-- **Saisie et Prétraitement de la Requête :**
-  - Interface de saisie permettant à l'utilisateur d'entrer sa recherche.
-  - Nettoyage et normalisation de la requête (mise en minuscules, suppression des caractères spéciaux, élimination des stopwords).
-  
-- **Prétraitement et Vectorisation des Textes Produits :**
-  - Extraction des titres et descriptions des produits.
-  - Application d’un pipeline de nettoyage similaire à celui de la requête.
-  - Vectorisation à l’aide d’outils tels que **TF-IDF** (avec possibilité d’extension ultérieure vers Word2Vec ou d’autres embeddings).
-  
-- **Calcul de la Similarité et Classement :**
-  - Utilisation de la cosine similarity pour mesurer la proximité entre la requête et les produits.
-  - Classement des résultats par ordre décroissant de pertinence et affichage des top N résultats.
 
-**b) Interface Utilisateur Simple et Intuitive**
-- Page de recherche épurée avec une barre de saisie.
-- Présentation claire des résultats (titre, description, et éventuellement image ou score de pertinence).
-- Réactivité et simplicité pour garantir une prise en main rapide par l'utilisateur.
-
-**c) Gestion Basique des Données et Logistique**
-- Importation et prétraitement des données produits via des fichiers plats ou une base de données légère.
-- Mise à jour périodique de l’index produit pour intégrer les nouveautés.
-- Journalisation des requêtes pour collecter des retours et orienter les améliorations futures.
-
-**d) Suivi et Mesure de la Performance**
-- Monitoring des temps de réponse (objectif : moins de 2 secondes par requête).
-- Enregistrement des logs d’utilisation pour analyser l’efficacité de l’algorithme de classement et la pertinence des résultats.
-        """
-    )
-    
-    st.subheader("4.3. Priorisation des Fonctionnalités")
-    st.markdown(
-        """
-**Fonctionnalités Prioritaires (à livrer dans le MVP) :**
-1. **Pipeline de Prétraitement et Vectorisation :**
-   - Mise en œuvre du nettoyage, normalisation et vectorisation des textes produits et des requêtes via TF-IDF.
-2. **Mécanisme de Calcul de la Similarité et Classement :**
-   - Implémentation du calcul de la cosine similarity pour établir un classement initial.
-3. **Interface de Recherche Basique :**
-   - Conception d'une interface utilisateur simple et responsive pour saisir la requête et visualiser les résultats.
-4. **Journalisation des Requêtes :**
-   - Mise en place d’un système de logging permettant de collecter les interactions utilisateurs pour affiner le modèle.
-
-**Fonctionnalités à Développer ultérieurement :**
-1. **Filtrage Collaboratif (Méthodologie 2) :**
-   - Intégration d’un module de recommandation basé sur l’historique utilisateur lorsque suffisamment de données seront collectées.
-2. **Ré-Ranking par Réseau de Neurones (Méthodologie 3) :**
-   - Déploiement d’un MLP pour réordonner les résultats en combinant plusieurs critères (similarité textuelle, popularité, préférences utilisateur).
-3. **Optimisation Avancée de la Performance :**
-   - Mise en place d’index inversés ou utilisation de bibliothèques spécialisées (ex. FAISS) pour le traitement de gros volumes de données.
-
-**Fonctionnalités à Écarter Définitivement ou à Retarder :**
-- Les fonctionnalités nécessitant un volume important de données ou un entraînement complexe (comme le ré-ranking par MLP) pourront être repoussées à une version ultérieure si elles impactent la réactivité ou la stabilité du MVP.
-- Les options d’interface utilisateur avancées (filtres dynamiques, recommandations visuelles personnalisées) seront envisagées seulement si elles apportent une valeur significative par rapport à leur complexité de mise en œuvre.
-        """
-    )
-    
-    st.subheader("4.4. Spécifications Techniques du MVP")
-    st.markdown(
-        """
-**Performance et Scalabilité :**
-- Temps de réponse par requête inférieur à 2 secondes.
-- Capacité à gérer un volume modéré de requêtes simultanées (scalabilité horizontale envisagée pour les phases ultérieures).
-
-**Technologies et Outils :**
-- **Backend :** Python avec scikit-learn (pour le TF-IDF), NumPy et éventuellement FAISS pour l'optimisation du calcul de similarité.
-- **Frontend :** Streamlit pour une mise en place rapide et une interface utilisateur simple.
-- **Infrastructure :** Serveur de test évolutif vers une solution cloud (selon le volume de trafic).
-- **Stockage :** Fichiers plats (CSV) ou base NoSQL légère (par exemple, MongoDB) pour les données produits.
-
-**Sécurité et Fiabilité :**
-- Gestion robuste des erreurs lors du prétraitement et de la recherche.
-- Journalisation détaillée des requêtes et des incidents pour faciliter la maintenance.
-- Tests unitaires et d’intégration afin de garantir la stabilité du système.
-
-**Méthodologie de Développement :**
-- Développement en cycles itératifs avec des feedbacks réguliers des utilisateurs.
-- Documentation technique et fonctionnelle complète pour assurer la pérennité et la maintenabilité du projet.
-        """
-    )
-    
-    st.subheader("4.5. Conclusion")
-    st.markdown(
-        """
-Le MVP a pour vocation de valider l'approche de filtrage par contenu comme socle de l'amélioration des résultats de recherche pour Rakuten. 
-En se concentrant sur les fonctionnalités essentielles – prétraitement et vectorisation des textes, calcul de similarité, interface utilisateur basique et journalisation – nous garantissons une mise en œuvre rapide et efficace, tout en ouvrant la voie à des améliorations futures (filtrage collaboratif et ré-ranking par MLP) en fonction des retours et des évolutions du projet.
+Chaque méthodologie est détaillée avec ses étapes de prétraitement, sa modélisation mathématique, son architecture de réseau (le cas échéant) et un workflow complet explicitant le pipeline global depuis l’ingestion des données jusqu’à l’application finale, garantissant ainsi une vision technique complète pour implémenter un moteur de recherche intelligent et personnalisable.
         """
     )
 
