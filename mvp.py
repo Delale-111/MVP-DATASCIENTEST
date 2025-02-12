@@ -29,7 +29,7 @@ Cette approche exploite l’analyse sémantique des descriptions et titres de pr
 
     st.subheader("1.1. Workflow Global de la Méthodologie 1")
     st.markdown("Le diagramme suivant décrit l’ensemble du pipeline :")
-    st.image("w.png", use_column_width=True)
+    st.image("w.png", use_container_width=True)
 
     st.subheader("1.2. Pipeline de Prétraitement et Vectorisation")
     with st.expander("Voir le détail du prétraitement et de la vectorisation"):
@@ -129,7 +129,7 @@ Cette approche exploite l’historique des interactions des utilisateurs (clics,
         """
     )
     st.subheader("2.1. Workflow Global de la Méthodologie 2")
-    st.image("f.png", use_column_width=True)
+    st.image("f.png", use_container_width=True)
 
     st.subheader("2.2. Pipeline de Collecte et Préparation des Données Utilisateur")
     with st.expander("Voir le détail de la collecte des données"):
@@ -190,7 +190,7 @@ L’objectif est d’utiliser un réseau de neurones (MLP) pour réordonner les 
         """
     )
     st.subheader("3.1. Workflow Global de la Méthodologie 3")
-    st.image("k.png", use_column_width=True)
+    st.image("k.png", use_container_width=True)
 
     st.subheader("3.2. Extraction et Construction des Features")
     with st.expander("Détails sur l'extraction des features"):
