@@ -1,9 +1,0 @@
-graphviz
-streamlit>=1.22
-streamlit-autorefresh>=0.1
-pandas>=1.5
-numpy>=1.23
-altair>=5.0
-plotly>=5.16
-pydeck>=0.8
-scikit-learn>=1.2
